@@ -19,5 +19,3 @@ Certifique-se de ter o Python instalado e execute no terminal:
 
 ```bash
 python jogo.py
-
-Desenvolvido por Douglas Gomes de Almeida — Licenciatura em Computação (Estácio).
