@@ -5,7 +5,7 @@ import random
 import time
 
 class Personagem:
-    def __init__(self, nome, classe, hp, ataque,pocoes):
+    def __init__(self, nome, classe, hp, ataque, pocoes):
         self.nome = nome
         self.classe = classe
         self.hp = hp
@@ -18,13 +18,13 @@ class Personagem:
 
     def usar_pocao(self):
         if self.pocoes > 0:
-            cura = 35
+            cura = 65
             self.hp = min(self.hp_maximo, self.hp + cura)
             self.pocoes -= 1
-            print(f"\n🧪 {self.nome} usou uma poção e recuperou {cura} de HP! HP atual: {self.hp}/{self.hp_maximo}")
-            print(f"Poções restantes: {self.pocoes}")
+            print(f"\n🧪 {self.nome} usou um Kit Médico e recuperou {cura} de Vida! Vida atual: {self.hp}/{self.hp_maximo}")
+            print(f"Kit Médico restantes: {self.pocoes}")
         else:
-            print("\n❌ Você não tem mais poções de cura!")
+            print("\n❌ Você não tem mais nenhum Kit Médico!")
 
 class Inimigo:
     def __init__(self, nome, hp, ataque, experiencia):
@@ -38,13 +38,13 @@ class Inimigo:
 
 def iniciar_jogo():
     print("========================================")
-    print("       ⚔️  DUNGEON QUEST: O RESGATE  ⚔️")
+    print("       ⚔️  O SOBREVIVENTE  ⚔️")
     print("========================================")
     
     nome = input("Digite o nome do seu herói: ")
     print("\nEscolha a sua Classe:")
-    print("1. Guerreiro (Mais HP, ataque equilibrado)")
-    print("2. Mago (Ataque mais forte, menos HP)")
+    print("1. Guerreiro (Mais Vida, ataque equilibrado)")
+    print("2. Mago (Ataque mais forte, menos Vida)")
     
     escolha = input("Opção (1 ou 2): ")
     if escolha == "2":
@@ -52,14 +52,14 @@ def iniciar_jogo():
     else:
         heroi = Personagem(nome, "Guerreiro", 140, 18, 2)
 
-    print(f"\n✨ {heroi.nome} o {heroi.classe} entrou na masmorra com {heroi.hp} de HP e {heroi.pocoes} poções!")
+    print(f"\n✨ {heroi.nome} o Seu {heroi.classe} entrou na Masmorra com {heroi.hp} de Vida e {heroi.pocoes} Kits Médico!")
     time.sleep(1)
 
     # Lista de chefes/inimigos da masmorra
     inimigos_data = [
-        {"nome": "Goblin Ladrão", "hp": 50, "ataque": 12, "exp": 20},
-        {"nome": "Orc Guerreiro", "hp": 80, "ataque": 18, "exp": 40},
-        {"nome": "Dragão das Sombras (Chefe)", "hp": 150, "ataque": 28, "exp": 100}
+        {"nome": "Ladrão", "hp": 50, "ataque": 12, "exp": 20},
+        {"nome": "Trapaceiro", "hp": 80, "ataque": 18, "exp": 40},
+        {"nome": "Dragão das Sombras (Chefe)", "hp": 100, "ataque": 28, "exp": 100}
     ]
 
     for i, dados in enumerate(inimigos_data, 1):
@@ -68,15 +68,15 @@ def iniciar_jogo():
         time.sleep(1)
         
         inimigo = Inimigo(dados["nome"], dados["hp"], dados["ataque"], dados["exp"])
-        print(f"⚠️ Um {inimigo.nome} selvagem apareceu para o combate!")
+        print(f"⚠️  Um {inimigo.nome} selvagem apareceu para o combate!")
 
         while inimigo.esta_vivo() and heroi.esta_vivo():
             print(f"\n--- Status ---")
-            print(f"❤️ {heroi.nome} (HP: {heroi.hp}/{heroi.hp_maximo}) | Poções: {heroi.pocoes}")
-            print(f"👹 {inimigo.nome} (HP: {inimigo.hp})")
+            print(f"❤️  {heroi.nome} (Vida: {heroi.hp}/{heroi.hp_maximo}) | Kit Médico: {heroi.pocoes}")
+            print(f"👹 {inimigo.nome} (Vida: {inimigo.hp})")
             print("--------------")
             print("1. Atacar")
-            print("2. Usar Poção de Cura")
+            print("2. Usar Kit Médico")
             
             acao = input("Escolha sua ação (1-2): ")
 
@@ -88,16 +88,16 @@ def iniciar_jogo():
                 if inimigo.esta_vivo():
                     dano_recebido = random.randint(inimigo.ataque - 3, inimigo.ataque + 3)
                     heroi.hp -= dano_recebido
-                    print(f"💥 O {inimigo.nome} retrucou e te causou {dano_recebido} de dano!")
+                    print(f"💥 O {inimigo.nome} revidou e te causou {dano_recebido} de dano!")
                 else:
-                    print(f"\n🏆 Vitória! Você derrotou o {inimigo.nome}!")
+                    print(f"\n🏆 Vitória!🏆 Você derrotou o {inimigo.nome}!")
             
             elif acao == "2":
                 heroi.usar_pocao()
                 if inimigo.esta_vivo():
                     dano_recebido = random.randint(inimigo.ataque - 3, inimigo.ataque + 3)
                     heroi.hp -= dano_recebido
-                    print(f"💥 Enquanto você usava a poção, o {inimigo.nome} atacou e causou {dano_recebido} de dano!")
+                    print(f"💥 Enquanto você usava o Kit Médico, o {inimigo.nome} atacou e causou {dano_recebido} de dano!")
             else:
                 print("❌ Ação inválida! Perdeu a vez.")
 
@@ -109,7 +109,7 @@ def iniciar_jogo():
         time.sleep(1)
 
     print("\n========================================")
-    print(f"🏆 PARABÉNS, {heroi.nome}! VOCÊ ZEROU A MASMORRA!")
+    print(f"🏆 PARABÉNS🏆 {heroi.nome}! VOCÊ ZEROU A MASMORRA!")
     print("========================================")
 
 if __name__ == "__main__":
